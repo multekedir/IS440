@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html  lang="en">
+   <head>
+      <title>Admin</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+     <nav role="navigation">
+       <ul class="nav nav-tabs">
+         <li class="nav-item">
+           <a class="nav-link" href="/home">Home</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="/news">News</a>
+         </li>
+         <li class="nav-item active">
+           <a class="nav-link" href="/news">Admin</a>
+         </li>
+       </ul>
+     </nav>
+      <main role="main" class="container">
+
+        <form method="POST">
+          <div class="form-group">
+            <label for="headline">Headline</label>
+            <input id="headline" type="text" class="form-control" placeholder="title" name="headline">
+          </div>
+          <div class="form-group">
+            <label for="url">Image url</label>
+            <input id="url" type="url" class="form-control" placeholder="url" name="url">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" type="text" class="form-control" rows="5" placeholder="Enter text here..." name="des"></textarea>
+          </div>
+          <input type="submit" value="Submit" class="btn btn-success pull-right"><br>
+        </form>
+        {% if item_added %}
+        <script>
+           alert("New is added");
+       </script>
+       {% endif %}
+      </main>
+   </body>
+</html>

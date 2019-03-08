@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html  lang="en">
+   <head>
+      <title>News</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+     <nav role="navigation" >
+       <ul class="nav nav-tabs">
+         <li class="nav-item">
+           <a class="nav-link" href="/home">Home</a>
+         </li>
+         <li class="nav-item active">
+           <a class="nav-link" href="/news">News</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="/admin">Admin</a>
+         </li>
+       </ul>
+     </nav>
+      <main role="main" class="container">
+        <h1 class="page-header"> News</h1>
+         {% for n in range(length) %}
+          <div class="card-deck" style="padding: 20px;margin: 40px;">
+            <div class="card">
+               <img class="card-img-top" src={{data['url'][n]}} alt="Card image" style="width:100%">
+              <div class="card-body">
+                <h4 class="card-title">{{data["header"][n]}}</h4>
+                <p class="card-text">{{data["desc"][n]}}</p>
+                <a href="/delete/{{n}}" class="btn btn-danger pull-right">Delete</a>
+              </div>
+            </div>
+          </div>
+         {% endfor %}
+      </main>
+   </body>
+</html>

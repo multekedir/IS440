@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, redirect
 from xml.etree import ElementTree
-import json
+
 
 app = Flask(__name__)
 
@@ -38,16 +38,27 @@ def loadData():
 
     return data_dictionary, size
 
-@app.route('/')
+@app.route('/home')
 def home():
+    return render_template('index.html')
+
+@app.route('/')
+def index():
+    return redirect("/home")
+
+@app.route('/news')
+def news():
     data_in, s = loadData()
 
-    return render_template('index.html', data=data_in, length=s)
+    return render_template('news.html', data=data_in, length=s)
 
-@app.route('/insert', methods=['GET', 'POST'])
-def insert_data():
-    #this block is only entered when the form is submitted
+
+
+
+@app.route('/admin',  methods=['GET', 'POST'])
+def admin():
     if request.method == 'POST':
+        data = request.get_data();
         req_data = request.get_data();
         print(" *"*50, end="")
         print("Posted data", end="")
@@ -58,21 +69,17 @@ def insert_data():
         des = request.form['des']
         image = request.form['url']
         newXMLElem(head, des,image)
-        return '''<h1>The language value is: {}</h1>
-                  <h1>The framework value is: {}</h1>
-                  <h1>The framework value is: {}</h1>'''.format(head,des, image)
+        return render_template('admin.html', item_added = True);
+    return render_template('admin.html')
 
 
-    return '''<form method="POST">
-                  Headline: <input type="text" name="headline"><br>
-                  Image: <input type="url" name="url"><br>
-                  Description: <input type="text" name="des"><br>
-                  <input type="submit" value="Submit"><br>
-              </form>
-          '''
-
-
-
+@app.route('/delete/<id>')
+def delete(id):
+    index = int(id)
+    elem = root.getchildren()[index]
+    root.remove(elem)
+    tree.write(path, "UTF-8")
+    return redirect("/news")
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=80)
